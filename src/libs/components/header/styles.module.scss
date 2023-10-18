@@ -1,0 +1,17 @@
+@import "../../../assets/css/vars.scss";
+
+.wrapper {
+  padding: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    color: $white-dark;
+  }
+}
