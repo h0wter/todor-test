@@ -1,0 +1,17 @@
+@import "src/assets/css/vars.scss";
+
+.container {
+  display: grid;
+  grid-template: "header" auto "content" 1fr;
+  flex-grow: 1;
+  max-height: 100vh;
+}
+
+.header {
+  grid-area: header;
+}
+
+.content {
+  grid-area: content;
+  overflow-y: auto;
+}
