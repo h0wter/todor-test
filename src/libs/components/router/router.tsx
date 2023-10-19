@@ -13,6 +13,7 @@ const Router = () => {
     <RouterProvider>
       <Route path={AppRoute.ROOT} element={<PageLayout />}>
         <Route index element={<HomePage />} />
+        <Route path={AppRoute.TASK} element={<HomePage />} />
         <Route path={AppRoute.ANY} element={<NotFound />} />
       </Route>
     </RouterProvider>

@@ -8,7 +8,6 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogoClick = useCallback(() => {
-    console.log('navigate');
     navigate(AppRoute.ROOT);
   }, []);
 
