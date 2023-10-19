@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { Suspense } from 'react';
 
 import { Header } from '../header/header.js';
 import { RouterOutlet } from '../router/router.js';
@@ -8,7 +8,9 @@ type Properties = {
   isHeaderHidden?: boolean;
 };
 
-const PageLayout: FC<Properties> = ({ isHeaderHidden = false }: Properties) => {
+const PageLayout: React.FC<Properties> = ({
+  isHeaderHidden = false,
+}: Properties) => {
   return (
     <div className={styles.container}>
       {!isHeaderHidden && (
@@ -17,7 +19,9 @@ const PageLayout: FC<Properties> = ({ isHeaderHidden = false }: Properties) => {
         </div>
       )}
       <main className={styles.content}>
-        <RouterOutlet />
+        <Suspense fallback={<p>Loading...</p>}>
+          <RouterOutlet />
+        </Suspense>
       </main>
     </div>
   );

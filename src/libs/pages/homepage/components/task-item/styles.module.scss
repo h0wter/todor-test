@@ -1,0 +1,41 @@
+@import "src/assets/css/vars.scss";
+
+.title > input {
+  font-size: 30px;
+}
+
+.textAreaWrapper {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.textArea {
+  padding: 0.5rem;
+  resize: none;
+  min-height: 100px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: $white-dark;
+
+  &:focus {
+    border: 1px solid $black;
+    outline: none;
+  }
+}
+
+.btn {
+  color: $black;
+  border: 1px solid $grey;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: $black;
+    border: 1px solid $black;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  gap: 0.5rem;
+}
