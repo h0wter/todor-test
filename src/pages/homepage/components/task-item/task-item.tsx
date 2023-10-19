@@ -1,19 +1,29 @@
 import { SyntheticEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import toast from 'react-hot-toast';
 import Stack from '@mui/material/Stack';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useAppDispatch, useCallback, useState } from '../../../../libs/hooks';
+import {
+  useAppDispatch,
+  useCallback,
+  useNavigate,
+  useState,
+} from '../../../../libs/hooks';
 import { Task } from '../../libs/types';
 
 import styles from './styles.module.scss';
 import { Priority, Status } from '../../libs/enums';
 import { Button } from '../../../../libs/components';
 import { FieldName } from './enums';
-import { addTask } from '../../../../packages/store/slices/tasks/actions.ts';
+import {
+  addTask,
+  updateTask,
+} from '../../../../packages/store/slices/tasks/actions.ts';
+import { AppRoute } from '../../../../libs/enums';
 
 type PartialTask = Partial<Task>;
 
@@ -28,6 +38,7 @@ const TaskItem: React.FC<Properties> = ({
 }: Properties): JSX.Element => {
   const [values, setValues] = useState<PartialTask | undefined>(task);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleChangeSelect = useCallback((e: SelectChangeEvent) => {
     const { name, value } = e.target;
@@ -47,26 +58,41 @@ const TaskItem: React.FC<Properties> = ({
 
   const handleSubmitClick = useCallback(() => {
     if (!values?.title) {
-      console.log('enter title');
+      toast.error('You must enter a title.');
       return;
     }
     if (!values?.description) {
-      console.log('enter description');
-
+      toast.error('You must enter a description.');
       return;
     }
     if (!values?.priority) {
-      console.log('enter priority');
-
+      toast.error('You have to choose a priority.');
       return;
     }
     if (!values?.status) {
-      console.log('enter status');
+      toast.error('You have to choose a status.');
 
       return;
     }
 
-    dispatch(addTask({ ...values, id: uuidv4() } as Task));
+    if (!task) {
+      const promise = dispatch(addTask({ ...values, id: uuidv4() } as Task));
+      toast.promise(promise, {
+        loading: 'Trying to add.',
+        success: 'The task has been successfully added.',
+        error: 'Error when adding.',
+      });
+    } else {
+      const promise = dispatch(updateTask(values as Task));
+      toast.promise(promise, {
+        loading: 'Trying to update.',
+        success: 'The task has been successfully updated.',
+        error: 'Error when updating.',
+      });
+
+      navigate(AppRoute.ROOT);
+    }
+
     onModalClose();
   }, [values]);
 
@@ -76,7 +102,7 @@ const TaskItem: React.FC<Properties> = ({
         className={styles.title}
         name={FieldName.TITLE}
         placeholder="Enter title"
-        value={values?.title}
+        value={values?.title || ''}
         onChange={handleInputChange}
       />
       <Stack direction="row" alignItems="stretch">
@@ -129,7 +155,7 @@ const TaskItem: React.FC<Properties> = ({
       </div>
       <div className={styles.btnWrapper}>
         <Button
-          label="Submit"
+          label={!task ? 'Add' : 'Update'}
           className={styles.btn}
           onClick={handleSubmitClick}
         />

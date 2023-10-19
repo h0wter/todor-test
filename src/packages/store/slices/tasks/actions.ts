@@ -14,6 +14,11 @@ const addTask = createAppAsyncThunk<Task, Task>(
   (task) => task,
 );
 
+const updateTask = createAppAsyncThunk<Task, Task>(
+  ActionType.UPDATE_TASK,
+  (task) => task,
+);
+
 const changeTaskStatus = createAppAsyncThunk<
   ChangeStatusPayload,
   ChangeStatusPayload
@@ -24,4 +29,4 @@ const deleteTask = createAppAsyncThunk<string, string>(
   (payload) => payload,
 );
 
-export { addTask, changeTaskStatus, deleteTask };
+export { addTask, changeTaskStatus, deleteTask, updateTask };
