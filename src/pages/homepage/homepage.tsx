@@ -2,15 +2,8 @@ import { Button, Modal } from '../../libs/components';
 import { IconName } from '../../libs/enums';
 import { useCallback, useToggle } from '../../libs/hooks';
 import { TaskItem, TaskList } from './components';
-import { Task } from './libs/types';
 
-const TASK: Task = {
-  title: 'Test task',
-  description:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, totam.',
-  priority: 'high',
-  status: 'completed',
-};
+import styles from './styles.module.scss';
 
 const HomePage = (): JSX.Element => {
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
@@ -21,6 +14,7 @@ const HomePage = (): JSX.Element => {
     <>
       <Button
         label="Add Task"
+        className={styles.btn}
         frontIcon={IconName.PLUS}
         onClick={handleAddTaskButtonClick}
       />
@@ -32,7 +26,7 @@ const HomePage = (): JSX.Element => {
             toggleIsModalOpen();
           }}
         >
-          <TaskItem task={TASK} onCancelButtonClick={toggleIsModalOpen} />
+          <TaskItem onModalClose={toggleIsModalOpen} />
         </Modal>
       )}
     </>

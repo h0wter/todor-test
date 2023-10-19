@@ -1,30 +1,33 @@
 import { SyntheticEvent } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Stack from '@mui/material/Stack';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useCallback, useState } from '../../../../libs/hooks';
+import { useAppDispatch, useCallback, useState } from '../../../../libs/hooks';
 import { Task } from '../../libs/types';
 
 import styles from './styles.module.scss';
 import { Priority, Status } from '../../libs/enums';
 import { Button } from '../../../../libs/components';
 import { FieldName } from './enums';
+import { addTask } from '../../../../packages/store/slices/tasks/actions.ts';
 
 type PartialTask = Partial<Task>;
 
 type Properties = {
   task?: Task;
-  onCancelButtonClick: () => void;
+  onModalClose: () => void;
 };
 
 const TaskItem: React.FC<Properties> = ({
   task,
-  onCancelButtonClick,
+  onModalClose,
 }: Properties): JSX.Element => {
   const [values, setValues] = useState<PartialTask | undefined>(task);
+  const dispatch = useAppDispatch();
 
   const handleChangeSelect = useCallback((e: SelectChangeEvent) => {
     const { name, value } = e.target;
@@ -43,7 +46,28 @@ const TaskItem: React.FC<Properties> = ({
   }, []);
 
   const handleSubmitClick = useCallback(() => {
-    console.log('submit', values);
+    if (!values?.title) {
+      console.log('enter title');
+      return;
+    }
+    if (!values?.description) {
+      console.log('enter description');
+
+      return;
+    }
+    if (!values?.priority) {
+      console.log('enter priority');
+
+      return;
+    }
+    if (!values?.status) {
+      console.log('enter status');
+
+      return;
+    }
+
+    dispatch(addTask({ ...values, id: uuidv4() } as Task));
+    onModalClose();
   }, [values]);
 
   return (
@@ -109,11 +133,7 @@ const TaskItem: React.FC<Properties> = ({
           className={styles.btn}
           onClick={handleSubmitClick}
         />
-        <Button
-          label="Cancel"
-          className={styles.btn}
-          onClick={onCancelButtonClick}
-        />
+        <Button label="Cancel" className={styles.btn} onClick={onModalClose} />
       </div>
     </Stack>
   );
