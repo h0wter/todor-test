@@ -1,12 +1,45 @@
+import { useParams } from 'react-router-dom';
 import { Button, Modal } from '../../libs/components';
-import { IconName } from '../../libs/enums';
-import { useToggle } from '../../libs/hooks';
+import { AppRoute, IconName } from '../../libs/enums';
+import {
+  useAppSelector,
+  useCallback,
+  useEffect,
+  useMemo,
+  useToggle,
+  useNavigate,
+} from '../../libs/hooks';
 import { TaskItem, TaskList } from './components';
+import { selectTasks } from '../../packages/store/slices/tasks/selectors.ts';
 
 import styles from './styles.module.scss';
 
 const HomePage = (): JSX.Element => {
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
+  const tasks = useAppSelector(selectTasks);
+  const { taskId } = useParams();
+  const navigate = useNavigate();
+
+  const selectedTask = useMemo(
+    () => tasks.find((task) => task.id === taskId),
+    [taskId],
+  );
+
+  useEffect(() => {
+    if (taskId) {
+      toggleIsModalOpen();
+    }
+  }, [taskId]);
+
+  const handleAddTaskClick = useCallback(() => {
+    navigate(AppRoute.ROOT);
+    toggleIsModalOpen();
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    toggleIsModalOpen();
+    navigate(AppRoute.ROOT);
+  }, []);
 
   return (
     <>
@@ -14,12 +47,12 @@ const HomePage = (): JSX.Element => {
         label="Add Task"
         className={styles.btn}
         frontIcon={IconName.PLUS}
-        onClick={toggleIsModalOpen}
+        onClick={handleAddTaskClick}
       />
-      <TaskList />
+      {!!tasks.length && <TaskList tasks={tasks} />}
       {isModalOpen && (
-        <Modal onClose={toggleIsModalOpen}>
-          <TaskItem onModalClose={toggleIsModalOpen} />
+        <Modal onClose={handleModalClose}>
+          <TaskItem task={selectedTask} onModalClose={handleModalClose} />
         </Modal>
       )}
     </>

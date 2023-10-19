@@ -2,10 +2,9 @@ import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import {
   useAppDispatch,
-  useAppSelector,
   useCallback,
+  useNavigate,
 } from '../../../../libs/hooks';
-import { selectTasks } from '../../../../packages/store/slices/tasks/selectors.ts';
 import { getValidClassNames } from '../../../../libs/helpers/index.ts';
 import { Icon } from '../../../../libs/components';
 import { IconName } from '../../../../libs/enums/icon-name.enum.ts';
@@ -16,10 +15,17 @@ import {
   deleteTask,
 } from '../../../../packages/store/slices/tasks/actions.ts';
 import { Status } from '../../libs/enums';
+import { AppRoute } from '../../../../libs/enums';
+import { Task } from '../../libs/types';
+import React from 'react';
 
-const TaskList = (): JSX.Element => {
+type Properties = {
+  tasks: Task[];
+};
+
+const TaskList: React.FC<Properties> = ({ tasks }: Properties): JSX.Element => {
   const dispatch = useAppDispatch();
-  const tasks = useAppSelector(selectTasks);
+  const navigate = useNavigate();
 
   const handleDoneClick = useCallback(
     (id: string) => () => {
@@ -29,6 +35,13 @@ const TaskList = (): JSX.Element => {
           status: Status.COMPLETED,
         }),
       );
+    },
+    [],
+  );
+
+  const handleEditClick = useCallback(
+    (id: string) => () => {
+      navigate(`${AppRoute.ROOT}${id}`);
     },
     [],
   );
@@ -73,6 +86,7 @@ const TaskList = (): JSX.Element => {
                   className={styles.icon}
                   iconName={IconName.EDIT}
                   size="lg"
+                  onClick={handleEditClick(id)}
                 />
                 <Icon
                   className={styles.icon}
