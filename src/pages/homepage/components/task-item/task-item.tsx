@@ -89,7 +89,7 @@ const TaskItem: React.FC<Properties> = ({
             labelId="select-priority-label"
             id="select-priority"
             name={FieldName.PRIORITY}
-            value={values?.priority}
+            value={values?.priority || ''}
             onChange={handleChangeSelect}
             label="Priority"
           >
@@ -107,7 +107,7 @@ const TaskItem: React.FC<Properties> = ({
             labelId="select-status-label"
             id="select-status"
             name={FieldName.STATUS}
-            value={values?.status}
+            value={values?.status || ''}
             onChange={handleChangeSelect}
             label="Status"
           >
