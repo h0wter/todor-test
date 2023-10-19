@@ -1,6 +1,6 @@
-import { Button, Modal } from '../../components';
-import { IconName } from '../../enums';
-import { useCallback, useToggle } from '../../hooks';
+import { Button, Modal } from '../../libs/components';
+import { IconName } from '../../libs/enums';
+import { useCallback, useToggle } from '../../libs/hooks';
 import { TaskItem, TaskList } from './components';
 import { Task } from './libs/types';
 

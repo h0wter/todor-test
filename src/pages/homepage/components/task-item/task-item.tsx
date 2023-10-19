@@ -5,12 +5,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useCallback, useState } from '../../../../hooks';
+import { useCallback, useState } from '../../../../libs/hooks';
 import { Task } from '../../libs/types';
 
 import styles from './styles.module.scss';
 import { Priority, Status } from '../../libs/enums';
-import { Button } from '../../../../components';
+import { Button } from '../../../../libs/components';
 import { FieldName } from './enums';
 
 type PartialTask = Partial<Task>;
