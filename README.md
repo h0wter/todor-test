@@ -1,27 +1,21 @@
-# React + TypeScript + Vite
+# Task List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Application Description:
+Introducing my application built using HTML, SCSS, TypeScript, Redux Toolkit, and Material-UI – your ultimate solution to manage the tasks and save them to local storage.
 
-Currently, two official plugins are available:
+## Key Features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Ability to add tasks. You can specify the name, description of the task, its priority and current status.
 
-## Expanding the ESLint configuration
+2. Ability to view task list after page reload. 
+   
+3. Ability to change the status of a task and delete it.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Run instructions:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Make sure you have the LTS version of Node.js installed on your computer.
+   [Download and install](https://nodejs.org/en/) if necessary.
+2. Install the project's basic dependencies with the `npm install` command.
+3. Start development mode by running the `npm run dev` command.
+4. Go to [http://localhost:3000/](http://localhost:3000/) in your browser. This
+   page will automatically reload after saving changes to the project files.
