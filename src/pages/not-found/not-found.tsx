@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
-import { AppRoute } from '../../enums';
+import { AppRoute } from '../../libs/enums';
 
 const NotFound = (): JSX.Element => {
   return (
