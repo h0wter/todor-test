@@ -5,8 +5,8 @@ import { RouterProvider } from '../router-provider/router-provider';
 import { AppRoute } from '../../enums';
 import { PageLayout } from '../page-layout/page-layout';
 
-const HomePage = lazy(() => import('../../pages/homepage/homepage.tsx'));
-const NotFound = lazy(() => import('../../pages/not-found/not-found.tsx'));
+const HomePage = lazy(() => import('../../../pages/homepage/homepage.tsx'));
+const NotFound = lazy(() => import('../../../pages/not-found/not-found.tsx'));
 
 const Router = () => {
   return (
