@@ -6,7 +6,7 @@ import { getValidClassNames } from '../../helpers';
 import styles from './styles.module.scss';
 
 type Properties = {
-  isCentered: boolean;
+  isCentered?: boolean;
   onClose: () => void;
   children: React.ReactNode;
   dialogContentClassName?: string;
@@ -14,7 +14,7 @@ type Properties = {
 };
 
 const Modal: React.FC<Properties> = ({
-  isCentered,
+  isCentered = true,
   onClose,
   dialogContentClassName,
   dialogClassName,
