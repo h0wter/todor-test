@@ -11,6 +11,8 @@ Introducing my application built using HTML, SCSS, TypeScript, Redux Toolkit, an
    
 3. Ability to change the status of a task and delete it.
 
+4. Ability to filter tasks by status, priority and by title.
+
 ## Run instructions:
 
 1. Make sure you have the LTS version of Node.js installed on your computer.
