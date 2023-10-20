@@ -1,3 +1,36 @@
+@import "/src/assets/css/vars.scss";
+
 .btn {
   margin-bottom: 1rem;
+}
+
+.input input {
+  color: $white;
+  caret-color: $white;
+}
+
+.input label {
+  color: $white !important;
+}
+
+.input fieldset {
+  border-color: $white !important;
+}
+
+.selectWrapper {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.selectWrapper label,
+.selectWrapper div,
+.selectWrapper svg {
+  color: $white !important;
+  margin: 0;
+}
+
+.selectWrapper fieldset {
+  border-color: $white !important;
 }

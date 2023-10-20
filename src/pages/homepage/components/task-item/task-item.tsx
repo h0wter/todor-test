@@ -3,10 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 import Stack from '@mui/material/Stack';
 import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { SelectChangeEvent } from '@mui/material/Select';
 import {
   useAppDispatch,
   useCallback,
@@ -14,9 +11,6 @@ import {
   useState,
 } from '../../../../libs/hooks';
 import { Task } from '../../libs/types';
-
-import styles from './styles.module.scss';
-import { Priority, Status } from '../../libs/enums';
 import { Button } from '../../../../libs/components';
 import { FieldName } from './enums';
 import {
@@ -24,6 +18,10 @@ import {
   updateTask,
 } from '../../../../packages/store/slices/tasks/actions.ts';
 import { AppRoute } from '../../../../libs/enums';
+import { StatusSelect } from '../status-select/status-select.tsx';
+
+import styles from './styles.module.scss';
+import { PrioritySelect } from '../priority-select/priority-select.tsx';
 
 type PartialTask = Partial<Task>;
 
@@ -106,42 +104,14 @@ const TaskItem: React.FC<Properties> = ({
         onChange={handleInputChange}
       />
       <Stack direction="row" alignItems="stretch">
-        <FormControl
-          variant="outlined"
-          sx={{ m: 1, minWidth: 120, flexGrow: 1 }}
-        >
-          <InputLabel id="select-priority-label">Priority</InputLabel>
-          <Select
-            labelId="select-priority-label"
-            id="select-priority"
-            name={FieldName.PRIORITY}
-            value={values?.priority || ''}
-            onChange={handleChangeSelect}
-            label="Priority"
-          >
-            <MenuItem value={Priority.LOW}>Low</MenuItem>
-            <MenuItem value={Priority.MEDIUM}>Medium</MenuItem>
-            <MenuItem value={Priority.HIGH}>High</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl
-          variant="outlined"
-          sx={{ m: 1, minWidth: 120, flexGrow: 1 }}
-        >
-          <InputLabel id="select-status-label">Status</InputLabel>
-          <Select
-            labelId="select-status-label"
-            id="select-status"
-            name={FieldName.STATUS}
-            value={values?.status || ''}
-            onChange={handleChangeSelect}
-            label="Status"
-          >
-            <MenuItem value={Status.NOT_COMPLETED}>Not completed</MenuItem>
-            <MenuItem value={Status.IN_PROGRESS}>In progress</MenuItem>
-            <MenuItem value={Status.COMPLETED}>Completed</MenuItem>
-          </Select>
-        </FormControl>
+        <PrioritySelect
+          value={values?.priority || ''}
+          onChange={handleChangeSelect}
+        />
+        <StatusSelect
+          value={values?.status || ''}
+          onChange={handleChangeSelect}
+        />
       </Stack>
       <div className={styles.textAreaWrapper}>
         <textarea
