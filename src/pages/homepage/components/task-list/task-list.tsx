@@ -18,6 +18,7 @@ import { Status } from '../../libs/enums';
 import { AppRoute } from '../../../../libs/enums';
 import { Task } from '../../libs/types';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 type Properties = {
   tasks: Task[];
@@ -29,12 +30,17 @@ const TaskList: React.FC<Properties> = ({ tasks }: Properties): JSX.Element => {
 
   const handleDoneClick = useCallback(
     (id: string) => () => {
-      dispatch(
+      const promise = dispatch(
         changeTaskStatus({
           id,
           status: Status.COMPLETED,
         }),
       );
+      toast.promise(promise, {
+        loading: 'Trying to update the status.',
+        success: 'The task was marked as completed.',
+        error: 'Error when updating.',
+      });
     },
     [],
   );
